@@ -11,6 +11,19 @@ def main(page: ft.Page):
         input.visible = False
         page.update()
 
+    def add_expense(e):
+        expense = {
+            "name": name.value,
+            "type": dd.value,
+            "installments": input.value,
+            "price": price.value,
+        }
+
+        print(expense)
+        pass
+
+    name = ft.TextField(label='Nome da Despesa')
+    price = ft.TextField(label='Valor', prefix_text='R$')
     input = ft.TextField(label="Quantidade de Parcelas", visible=False)
     dd = ft.Dropdown(
          label='Tipo',
@@ -22,10 +35,11 @@ def main(page: ft.Page):
 
     page.add(
         ft.Text('Adicione uma despesa', theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM),
-        ft.TextField(label='Nome da Despesa'),
+        name,
         dd,
         input,
-        ft.TextField(label='R$'),
+        price,
+        ft.ElevatedButton(text='Adicionar', on_click=add_expense),
     )
     pass
 
