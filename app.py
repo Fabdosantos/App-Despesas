@@ -1,7 +1,7 @@
 import flet as ft
 
 def main(page: ft.Page):
-    page.title = 'App Despesas'
+    page.title = 'Despesas'
 
     def add_installments_input(e):
         if (dd.value == "Parcelada"):
@@ -19,7 +19,13 @@ def main(page: ft.Page):
             "price": float(price.value),
         }
         
-        print(expense)
+        result.controls = [
+            ft.Text(expense.get('name')),
+            ft.Text(expense.get('type')),
+            ft.Text(expense.get('installments')),
+            ft.Text("R$" + expense.get('price')),
+        ]
+        page.update()
 
 
     name = ft.TextField(label='Nome da Despesa')
@@ -37,6 +43,8 @@ def main(page: ft.Page):
         input_filter=ft.InputFilter(r"\d+(\.\d{0,2})?")
     )
 
+    result = ft.Column()
+
     page.add(
         ft.Text('Adicione uma despesa', theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM),
         name,
@@ -44,6 +52,7 @@ def main(page: ft.Page):
         input,
         price,
         ft.ElevatedButton(text='Adicionar', on_click=add_expense),
+        result,
     )
 
 
